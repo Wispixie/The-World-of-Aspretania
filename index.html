@@ -4,88 +4,125 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The World of Aspretania - Wiki Portfolio</title>
+    
+    <!-- Importing elegant script and handwriting fonts for the crew profiles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&family=Reenie+Beanie&family=Caveat:wght@400;700&family=Alex+Brush&family=Architects+Daughter&family=La+Belle_Aurore&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
     <style>
-        /* Base Sleek Dark Theme Reset */
+        /* Base Sleek Dark & Gold Theme Reset */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background-color: #0a0a0a;
-            color: #e0e0e0;
+            background-color: #000000; /* Pure Black Background */
+            color: #d4af37; /* Elegant Gold Text */
+            font-family: 'Montserrat', sans-serif;
             line-height: 1.6;
             padding-bottom: 60px;
+            overflow-x: hidden;
+            opacity: 0; /* Starts hidden for the fade-in effect */
+            animation: pageFadeIn 1.5s ease-in-out forwards;
+        }
+
+        /* Custom Canvas for Particle Cursor Trail */
+        #cursor-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none; /* Let clicks pass through */
+            z-index: 9999;
+        }
+
+        /* Smooth page load fade-in */
+        @keyframes pageFadeIn {
+            to { opacity: 1; }
         }
 
         header {
-            background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
-            border-bottom: 1px solid #222;
-            padding: 40px 20px;
+            background: linear-gradient(135deg, #050505 0%, #111111 100%);
+            border-bottom: 1px solid #2a2005; /* Deep gold/bronze border */
+            padding: 50px 20px;
             text-align: center;
             position: relative;
         }
 
         header h1 {
+            font-family: 'Cinzel', serif;
             color: #ffffff;
-            font-size: 2.5rem;
-            letter-spacing: 2px;
+            font-size: 3rem;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(255,255,255,0.1);
+            margin-bottom: 12px;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+            opacity: 0;
+            animation: elementFadeIn 1s ease-out 0.3s forwards;
         }
 
         header p {
-            color: #888;
-            font-size: 1rem;
+            color: #aa913f;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            font-style: italic;
+            opacity: 0;
+            animation: elementFadeIn 1s ease-out 0.6s forwards;
         }
 
         /* Navigation Menu with Animated Fade Buttons */
         nav {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-top: 25px;
+            gap: 20px;
+            margin-top: 35px;
             flex-wrap: wrap;
+            opacity: 0;
+            animation: elementFadeIn 1s ease-out 0.9s forwards;
+        }
+
+        @keyframes elementFadeIn {
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .nav-btn {
-            background-color: #161616;
-            color: #999;
-            border: 1px solid #333;
-            padding: 10px 24px;
-            font-size: 0.95rem;
+            background-color: #0a0a0a;
+            color: #8c7632;
+            border: 1px solid #3a3010;
+            padding: 12px 28px;
+            font-size: 0.9rem;
             font-weight: 600;
-            border-radius: 4px;
+            border-radius: 0px; /* Sharp, sleek design */
             cursor: pointer;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            /* Smooth transitions for hover and active state fading */
-            transition: all 0.4s ease-in-out;
+            letter-spacing: 2px;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
             outline: none;
         }
 
         .nav-btn:hover {
             color: #ffffff;
-            background-color: #222222;
-            border-color: #555;
-            box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+            background-color: #16140e;
+            border-color: #d4af37;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
         }
 
-        /* The requested fade in/out click mechanism */
+        /* Animated Button Click Fade Dynamic */
         .nav-btn:active {
-            opacity: 0.3;
-            transform: scale(0.97);
-            transition: opacity 0.1s ease;
+            opacity: 0.2;
+            transform: scale(0.95);
+            transition: opacity 0.05s ease;
         }
 
         .nav-btn.active {
-            color: #ff4a4a;
-            border-color: #ff4a4a;
-            background-color: #1a0f0f;
-            box-shadow: 0 0 15px rgba(255, 74, 74, 0.15);
+            color: #ffffff;
+            border-color: #d4af37;
+            background: linear-gradient(180deg, #1f1a0b 0%, #0a0a0a 100%);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
         }
 
         /* Main Grid Containers */
@@ -97,47 +134,49 @@
 
         .wiki-section {
             display: none;
-            animation: fadeIn 0.6s ease-in-out forwards;
+            animation: sectionReveal 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         .wiki-section.active-section {
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        @sectionReveal {
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Wiki Card Styling */
+        /* Sleek Wiki Card Styling */
         .wiki-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 30px;
         }
 
         .wiki-card {
-            background-color: #121212;
-            border: 1px solid #1f1f1f;
-            border-radius: 6px;
+            background-color: #050505;
+            border: 1px solid #1a1508;
+            border-radius: 0px; /* Sharp and modern boxes */
             overflow: hidden;
-            transition: transform 0.3s ease, border-color 0.3s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.8);
         }
 
         .wiki-card:hover {
-            transform: translateY(-4px);
-            border-color: #333;
+            transform: translateY(-5px);
+            border-color: #d4af37;
+            box-shadow: 0 5px 25px rgba(212, 175, 55, 0.15);
         }
 
-        /* Character/Species Media block */
+        /* Media display Container */
         .char-img-container {
             width: 100%;
-            height: 250px;
-            background-color: #1a1a1a;
+            height: 420px;
+            background-color: #030303;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-bottom: 1px solid #1f1f1f;
+            border-bottom: 1px solid #1a1508;
             position: relative;
             overflow: hidden;
         }
@@ -148,66 +187,80 @@
             object-fit: cover;
         }
 
-        .placeholder-text {
-            color: #444;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: absolute;
-        }
-
         .card-content {
-            padding: 25px;
+            padding: 30px;
         }
 
         .card-content h3 {
+            font-family: 'Cinzel', serif;
             color: #ffffff;
             font-size: 1.3rem;
-            margin-bottom: 12px;
-            border-bottom: 1px solid #222;
-            padding-bottom: 8px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #2a2005;
+            padding-bottom: 10px;
+            letter-spacing: 1px;
         }
 
+        /* Custom Base Font for standard items */
         .card-content p {
-            color: #adadad;
-            font-size: 0.95rem;
-            white-space: pre-line; /* respects line breaks from your data */
+            color: #c5b273;
+            font-size: 1rem;
+            white-space: pre-line;
         }
+
+        /* Unique handwriting text variants for the crew logs */
+        .handwriting-1 { font-family: 'Reenie Beanie', cursive; font-size: 1.5rem !important; color: #e1d3a6 !important; line-height: 1.2; }
+        .handwriting-2 { font-family: 'Great Vibes', cursive; font-size: 1.3rem !important; color: #f3e5ab !important; }
+        .handwriting-3 { font-family: 'Caveat', cursive; font-size: 1.35rem !important; color: #dcd0a1 !important; font-weight: bold; }
+        .handwriting-4 { font-family: 'Alex Brush', cursive; font-size: 1.4rem !important; color: #fff4ca !important; }
+        .handwriting-5 { font-family: 'Architects Daughter', cursive; font-size: 1.05rem !important; color: #e6dcbc !important; }
+        .handwriting-6 { font-family: 'La Belle Aurore', cursive; font-size: 1.3rem !important; color: #e1d3a6 !important; }
 
         /* Tag Pill Styling */
         .tags-container {
-            margin-top: 15px;
+            margin-top: 20px;
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
+            gap: 8px;
         }
 
         .tag-pill {
-            background-color: #1c1c1c;
-            color: #666;
+            background-color: #0d0c08;
+            color: #aa913f;
             font-size: 0.75rem;
-            padding: 3px 8px;
-            border-radius: 3px;
-            border: 1px solid #262626;
+            padding: 4px 10px;
+            border-radius: 0px;
+            border: 1px solid #2a220c;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        /* Highlighted/Pinned Lore */
+        .tag-crew {
+            background-color: #211904;
+            color: #ffffff;
+            border-color: #d4af37;
+        }
+
+        /* Highlighted/Pinned Lore Card */
         .featured-card {
             grid-column: 1 / -1;
-            background: linear-gradient(145deg, #141414 0%, #0d0d0d 100%);
-            border: 1px solid #2a2a2a;
+            background: linear-gradient(145deg, #0a0a0a 0%, #020202 100%);
+            border: 1px solid #3a3010;
         }
         
         .featured-card h3 {
-            color: #ff4a4a;
+            color: #d4af37;
         }
     </style>
 </head>
 <body>
 
+    <!-- Canvas overlay for bubble cursor trail effect -->
+    <canvas id="cursor-canvas"></canvas>
+
     <header>
-        <h1>Aspretania</h1>
-        <p>A Comprehensive Codex of the Skies, Surface, Magic, and Mechanics</p>
+        <h1>The World of Aspretania</h1>
+        <p>A Comprehensive Codex of the Skies, Surface, Magic, and Mechanisms</p>
         
         <nav>
             <button class="nav-btn active" onclick="switchTab('characters', this)">Characters & Species</button>
@@ -223,189 +276,117 @@
         <section id="characters" class="wiki-section active-section">
             <div class="wiki-grid">
                 
-                <!-- Elder Dragons -->
+                <!-- CREW MEMBER 1 -->
                 <div class="wiki-card">
                     <div class="char-img-container">
-                        <!-- REPLACE src="" WITH YOUR IMAGE URL LATER -->
-                        <img src="" alt="">
-                        <span class="placeholder-text">[ Drop Elder Dragons Image Here ]</span>
+                        <img src="00044-2078962483.jpg" alt="Crew Member">
                     </div>
                     <div class="card-content">
-                        <h3>Elder Dragons</h3>
-                        <p>These dragons are large, wish granting serpents that fled Aspretania when the threat of steampunk evolution became apparent. In a desperate bid to save their magic, they condensed themselves into a silver mist and hid themselves away within a labyrinth deep in the Abyssal Forest.</p>
+                        <h3>Crew Member — Leporidae Deckhand</h3>
+                        <p class="handwriting-1">A nimble and observant member of the Aurum Hare crew. Belonging to the Leporidae species, he possesses fine-tuned exceptional reflexes and uses his natural telekinetic affinities to assist with operations on board.</p>
                         <div class="tags-container">
-                            <span class="tag-pill">dragons</span><span class="tag-pill">elder dragons</span><span class="tag-pill">wish dragons</span>
+                            <span class="tag-pill tag-crew">Aurum Hare Crew</span>
+                            <span class="tag-pill">Leporidae</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Lupalari -->
+                <!-- CREW MEMBER 2 (Captain / Leader Portrait 1) -->
                 <div class="wiki-card">
                     <div class="char-img-container">
-                        <img src="" alt="">
-                        <span class="placeholder-text">[ Drop Lupalari Image Here ]</span>
+                        <img src="01029747423849.jpg" alt="Crew Captain">
                     </div>
                     <div class="card-content">
-                        <h3>Lupalari</h3>
-                        <p>Lupalari are magical wolf-like species that are often mistaken for werewolves or wolfkin. The species operates on a tri-form biological system, shifting between a silver-haired human, a massive silver wolf, and a hulking bipedal lycanthrope. 
-
-                        Lupalari live in mountainous regions and have deep connections with magical energy from their ancestors. They are magical purists, shunning any sort of tech, preferring to do anything by hand or magically.</p>
+                        <h3>Crew Captain / Leader</h3>
+                        <p class="handwriting-2">The bold and charismatic figurehead leading the Aurum Hare through the perilous skies of Aspretania. Exuding immense confidence and sharp wits, he navigates both the mechanical complexity of his ship and the tricky politics of the world below.</p>
                         <div class="tags-container">
+                            <span class="tag-pill tag-crew">Aurum Hare Crew</span>
+                            <span class="tag-pill">Leader</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CREW MEMBER 3 -->
+                <div class="wiki-card">
+                    <div class="char-img-container">
+                        <img src="00082-325527743.jpg" alt="Crew Engineer">
+                    </div>
+                    <div class="card-content">
+                        <h3>Ship Mechanic / Engineer</h3>
+                        <p class="handwriting-3">A powerhouse Lupalari engineer carrying out heavy mechanical work. Armed with a massive wrench and a complex, magical steampunk prosthetic arm, he balances his ancestral magical energy with the new mechanisms of sky travel.</p>
+                        <div class="tags-container">
+                            <span class="tag-pill tag-crew">Aurum Hare Crew</span>
                             <span class="tag-pill">Lupalari</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Felidae -->
+                <!-- CREW MEMBER 4 -->
                 <div class="wiki-card">
                     <div class="char-img-container">
-                        <img src="" alt="">
-                        <span class="placeholder-text">[ Drop Felidae Image Here ]</span>
+                        <img src="00117-1987006987.jpg" alt="Crew Member">
                     </div>
                     <div class="card-content">
-                        <h3>Felidae</h3>
-                        <p>Once revered as gods for their beauty and magical prowess, they lost their magical abilities as a species when they chose to assimilate more directly with humans—steampunk technology interfering with their genetics through mysterious means. Now they are kept as pets, slaves, and broodmares.</p>
+                        <h3>Crew Quartermaster / Bartender</h3>
+                        <p class="handwriting-4">A sharp-witted and alluring Vulpori keeping watch over the crew's spirits and dynamic. Displaying the signature russet-red hair and innate high intelligence of her kind, she handles diplomats, outsmarts traders, and never forgets a face.</p>
                         <div class="tags-container">
-                            <span class="tag-pill">felidae</span><span class="tag-pill">cat girls</span>
+                            <span class="tag-pill tag-crew">Aurum Hare Crew</span>
+                            <span class="tag-pill">Vulpori</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Leporidae -->
+                <!-- CREW MEMBER 5 -->
                 <div class="wiki-card">
                     <div class="char-img-container">
-                        <img src="" alt="">
-                        <span class="placeholder-text">[ Drop Leporidae Image Here ]</span>
+                        <img src="00149-1987006983.jpg" alt="Crew Cook">
                     </div>
                     <div class="card-content">
-                        <h3>Leporidae</h3>
-                        <p>Characterized by their hare-like ears, reflexes, and the ability to use telekinesis, Leporidae are adept magic users who live completely in tune with nature deep in the woods. Most can communicate telepathically.</p>
+                        <h3>Ship Cook / Felidae</h3>
+                        <p class="handwriting-5">The bright and comforting heart of the ship's galley. An ethereal Felidae whose innate beauty shines through her white hair and bright green eyes, she works tirelessly with surface-sourced ingredients to keep the crew well-fed on long voyages.</p>
                         <div class="tags-container">
-                            <span class="tag-pill">leporidae</span><span class="tag-pill">rabbit people</span>
+                            <span class="tag-pill tag-crew">Aurum Hare Crew</span>
+                            <span class="tag-pill">Felidae</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Vulpori -->
+                <!-- CREW MEMBER 6 -->
                 <div class="wiki-card">
                     <div class="char-img-container">
-                        <img src="" alt="">
-                        <span class="placeholder-text">[ Drop Vulpori Image Here ]</span>
+                        <img src="00182-1987006987.jpg" alt="Crew Member">
                     </div>
                     <div class="card-content">
-                        <h3>Vulpori</h3>
-                        <p>A fox-like species known for their beauty, naturally high intelligence, and lithe bodies. They have thrived among human society despite their lack of magical usage, becoming diplomats and nobility through sheer adaptability. They possess the innate ability to never forget.</p>
+                        <h3>Vessel Pilot / Veteran Vanguard</h3>
+                        <p class="handwriting-6">A rugged, battle-hardened human surface dweller or sky pirate who helps guide the vessel through hazardous storms and monster-filled currents. He stands as a formidable line of defense against the authority of the Crimson Expanse.</p>
                         <div class="tags-container">
-                            <span class="tag-pill">vulpori</span>
+                            <span class="tag-pill tag-crew">Aurum Hare Crew</span>
+                            <span class="tag-pill">Human</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Elves -->
+                <!-- CREW MEMBER 7 (Alternative Leader Portrait) -->
                 <div class="wiki-card">
                     <div class="char-img-container">
-                        <img src="" alt="">
-                        <span class="placeholder-text">[ Drop Elves Image Here ]</span>
+                        <img src="01029747423849_2.jpg" alt="Crew Captain Alt">
                     </div>
                     <div class="card-content">
-                        <h3>Elves</h3>
-                        <p>An ethereal and beautiful race boasting perfectly dewy skin and iridescent silver-white hair. Elves are able to use magic by absorbing the essence of other magical creatures and using the ink for runes and sigils to cast long-lasting spells.</p>
+                        <h3>Crew Captain / Leader (Alt Portrait)</h3>
+                        <p class="handwriting-2">An alternative tactical view of the Aurum Hare's leader, illustrating the striking details of his heritage, sharp slit eyes, and command over his vessel's operations.</p>
                         <div class="tags-container">
-                            <span class="tag-pill">elves</span><span class="tag-pill">elven</span>
+                            <span class="tag-pill tag-crew">Aurum Hare Crew</span>
+                            <span class="tag-pill">Alternate</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Beastia -->
-                <div class="wiki-card">
-                    <div class="char-img-container">
-                        <img src="" alt="">
-                        <span class="placeholder-text">[ Drop Beastia Image Here ]</span>
-                    </div>
-                    <div class="card-content">
-                        <h3>Beastia</h3>
-                        <p>Ancestors of humans and beastkin that are typically magic users by birthright. Beastia have subcategories such as Vulpori, Leporidae, Lupalari, and Felidae. They have skin with animalistic features sprinkled throughout.</p>
-                        <div class="tags-container">
-                            <span class="tag-pill">beastia</span><span class="tag-pill">magical humanoids</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Beastkin -->
-                <div class="wiki-card">
-                    <div class="char-img-container">
-                        <img src="" alt="">
-                        <span class="placeholder-text">[ Drop Beastkin Image Here ]</span>
-                    </div>
-                    <div class="card-content">
-                        <h3>Beastkin</h3>
-                        <p>Creatures that refer to Wyrmkin or Wolfkin. These are more animalistic humanoids typically covered in fur or scales, depending on their origin. They are what one would consider 'anthropomorphic animals'.</p>
-                        <div class="tags-container">
-                            <span class="tag-pill">beastkin</span><span class="tag-pill">furry</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Humans -->
-                <div class="wiki-card">
-                    <div class="char-img-container">
-                        <img src="" alt="">
-                        <span class="placeholder-text">[ Drop Humans Image Here ]</span>
-                    </div>
-                    <div class="card-content">
-                        <h3>Humans</h3>
-                        <p>Diverse and widespread. Some humans adapt to magic and live with the elves in the sky cities, while many prefer the natural way of things and live on the surfaces completely disconnected from advanced technology.</p>
-                        <div class="tags-container">
-                            <span class="tag-pill">humans</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Dragonkin -->
-                <div class="wiki-card">
-                    <div class="char-img-container">
-                        <img src="" alt="">
-                        <span class="placeholder-text">[ Drop Dragonkin Image Here ]</span>
-                    </div>
-                    <div class="card-content">
-                        <h3>Dragonkin</h3>
-                        <p>Reptilian humanoids possessing exceptional strength and covered completely in scales. They don't use magic as much as they are magical themselves, and lead nomadic lifestyles within the Calcified Crater.</p>
-                        <div class="tags-container">
-                            <span class="tag-pill">Dragonkin</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Hollows -->
+                <!-- CODEX SPECIES -->
                 <div class="wiki-card">
                     <div class="card-content">
-                        <h3>Hollows</h3>
-                        <p>The name given to people of any species who lack magical ability despite the rest of their species having such. This birth defect is a sad reminder that technology and magic are at constant war.</p>
-                        <div class="tags-container">
-                            <span class="tag-pill">hollows</span><span class="tag-pill">magic-less</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Ghost Ships -->
-                <div class="wiki-card">
-                    <div class="card-content">
-                        <h3>Ghost Ships</h3>
-                        <p>Magical vessels of pirate souls who have been lost at sea. When a magic-powered steampunk vessel sinks, the magic binds to the deceased, creating a restless ship that consistently believes itself to be alive.</p>
-                        <div class="tags-container">
-                            <span class="tag-pill">ghost ships</span><span class="tag-pill">pirate fate</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- The Crimson Expanse -->
-                <div class="wiki-card">
-                    <div class="card-content">
-                        <h3>The Crimson Expanse</h3>
-                        <p>The law and authority system within Aspretania. It is an amalgamation of mixed species and races who force strict order. Law breakers are severely punished, normally resulting in death.</p>
-                        <div class="tags-container">
-                            <span class="tag-pill">law</span><span class="tag-pill">government</span>
-                        </div>
+                        <h3>Elder Dragons</h3>
+                        <p>These dragons flee when the threat of steampunk evolution becomes apparent, condensing themselves into silver mist deep in the Abyssal Forest[cite: 1].</p>
+                        <div class="tags-container"><span class="tag-pill">dragons</span></div>
                     </div>
                 </div>
 
@@ -415,205 +396,138 @@
         <!-- WORLD & LORE SECTION -->
         <section id="world" class="wiki-section">
             <div class="wiki-grid">
-                
-                <!-- History Featured Card -->
                 <div class="wiki-card featured-card">
                     <div class="card-content">
                         <h3>History of Aspretania</h3>
-                        <p>The world is made of magic, and thus, all nature is the source of magic. As technology progressed, humans and elves became allies and created the era of steampunk—mechanical vessels powered by magical runes and sigils. Now, Elves and humans tend to live in the sky cities away from the surface dwellers, causing the rapid depletion of magic in nature as a whole and birthing more and more hollows each generation.</p>
+                        <p>The world is made of magic, and thus, all nature is the source of magic[cite: 1]. As technology progressed, humans and elves became allies and created the era of steampunk—mechanical vessels powered by magical runes and sigils[cite: 1]. Now, Elves and humans tend to live in the sky cities away from the surface dwellers, causing the rapid depletion of magic in nature as a whole and birthing more and more hollows each generation[cite: 1].</p>
                         <div class="tags-container">
-                            <span class="tag-pill">history</span><span class="tag-pill">setting</span><span class="tag-pill">worldbuilding</span>
+                            <span class="tag-pill">history</span><span class="tag-pill">setting</span>
                         </div>
                     </div>
                 </div>
-
-                <!-- Surface vs Skies -->
-                <div class="wiki-card">
-                    <div class="card-content">
-                        <h3>Surface vs Skies</h3>
-                        <p>Aspretania is divided into those who live in the sky and those who live on the surface. Those in the sky thrive using elite steampunk vessels, leaving some surface areas in total darkness due to their massive infrastructure. The surface is full of exiles, criminals, and natural species who rely heavily on nature.</p>
-                        <div class="tags-container">
-                            <span class="tag-pill">sky</span><span class="tag-pill">surface</span><span class="tag-pill">lore</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Magic vs Mechanisms -->
-                <div class="wiki-card">
-                    <div class="card-content">
-                        <h3>Magic vs Mechanisms</h3>
-                        <p>There are intense divides among those who prefer the old ways of magic versus the newer threat of ever-advancing technology. Hybrids of both have allowed for steampunk styled buildings and ships that traverse land and water effortlessly.</p>
-                        <div class="tags-container">
-                            <span class="tag-pill">magic</span><span class="tag-pill">mechanisms</span><span class="tag-pill">steampunk</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Abyssal Illness -->
-                <div class="wiki-card">
-                    <div class="card-content">
-                        <h3>Abyssal Illness</h3>
-                        <p>An illness contracted within the Abyssal Forest when drinking the water. It causes someone to turn into stone slowly over a period of a month. The only known cure is cannibalism or consumption of a live species within the abyss.</p>
-                        <div class="tags-container">
-                            <span class="tag-pill">sickness</span><span class="tag-pill">abyssal illness</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Magical Prodigies -->
-                <div class="wiki-card">
-                    <div class="card-content">
-                        <h3>Magical Prodigies</h3>
-                        <p>Beings who possess such overwhelming magical power that they deal with horrible supernatural side effects, such as insomnia or schizophrenia, often preferring a cruel, silent fate upon coming of age.</p>
-                        <div class="tags-container">
-                            <span class="tag-pill">magical prodigies</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Art and Music -->
-                <div class="wiki-card">
-                    <div class="card-content">
-                        <h3>Art and Music Culture</h3>
-                        <p>Music and Art are held in high regard. Artists and musicians are treated both like royalty and prisoners; young talents are locked away within the College of Arts where they are forced to produce art until they die.</p>
-                        <div class="tags-container">
-                            <span class="tag-pill">artists</span><span class="tag-pill">college</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Magic Core -->
-                <div class="wiki-card">
-                    <div class="card-content">
-                        <h3>The Nature of Magic</h3>
-                        <p>Magic stems entirely from nature. Beastia and Beastkin can use magic naturally to varying degrees, whereas humans and elves can only manipulate magic with the proper external catalysts.</p>
-                        <div class="tags-container">
-                            <span class="tag-pill">magic</span>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </section>
 
         <!-- LOCATIONS SECTION -->
         <section id="locations" class="wiki-section">
             <div class="wiki-grid">
-                
-                <div class="wiki-card">
-                    <div class="card-content">
-                        <h3>Red Sea</h3>
-                        <p>Named thanks to the coral that illuminates the waters, giving it a scarlet hue. It's a treacherous place filled with man-eating creatures that are drawn explicitly to body temperature.</p>
-                        <div class="tags-container"><span class="tag-pill">location</span><span class="tag-pill">red sea</span></div>
-                    </div>
-                </div>
-
-                <div class="wiki-card">
-                    <div class="card-content">
-                        <h3>The Calcified Crater</h3>
-                        <p>A dried desert area surrounded by mountains. Many poisonous and nocturnal creatures live here, making it dangerous. Underground mole denizens offer guidance for a high price.</p>
-                        <div class="tags-container"><span class="tag-pill">desert</span><span class="tag-pill">crater</span></div>
-                    </div>
-                </div>
-
-                <div class="wiki-card">
-                    <div class="card-content">
-                        <h3>The Abyssal Forest</h3>
-                        <p>A perpetually dark, marshy forest area. Most creatures here are bio-luminescent and highly dangerous. Going deeper will subject travelers to intense pressure sickness making ascent nearly impossible.</p>
-                        <div class="tags-container"><span class="tag-pill">abyssal forest</span><span class="tag-pill">dark forest</span></div>
-                    </div>
-                </div>
-
-                <div class="wiki-card">
-                    <div class="card-content">
-                        <h3>Silent Realm</h3>
-                        <p>A realm accessible only to those with excessive magic energy. Magical prodigies keep watch over their magical well here until their bodies cease to be, remaining as wandering spirits.</p>
-                        <div class="tags-container"><span class="tag-pill">silent realm</span><span class="tag-pill">spirits</span></div>
-                    </div>
-                </div>
-
-                <div class="wiki-card">
-                    <div class="card-content">
-                        <h3>College of Arts</h3>
-                        <p>A prestigious academy where children of all races are boarded far from home if they possess an affinity for music or art. The rules are strict, turning talents into beautiful cages.</p>
-                        <div class="tags-container"><span class="tag-pill">school</span><span class="tag-pill">academy</span></div>
-                    </div>
-                </div>
-
-                <div class="wiki-card">
-                    <div class="card-content">
-                        <h3>Port Royal</h3>
-                        <p>The largest trading port in Aspretania. A massive landmass acting as the critical trade hub connecting the surface seas directly with the sky networks.</p>
-                        <div class="tags-container"><span class="tag-pill">trading center</span><span class="tag-pill">port royal</span></div>
-                    </div>
-                </div>
-
                 <div class="wiki-card">
                     <div class="card-content">
                         <h3>The Suspended Shipyard</h3>
-                        <p>A shipyard suspended high in the skies. It acts as a massive hub for steampunk vessels to acquire parts harvested from abandoned or destroyed ships.</p>
-                        <div class="tags-container"><span class="tag-pill">shipyard</span><span class="tag-pill">steampunk</span></div>
+                        <p>A shipyard suspended high in the skies[cite: 1]. It acts as a massive hub for steampunk vessels to acquire parts harvested from abandoned or destroyed ships[cite: 1].</p>
+                        <div class="tags-container"><span class="tag-pill">shipyard</span></div>
                     </div>
                 </div>
-
-                <div class="wiki-card">
-                    <div class="card-content">
-                        <h3>Midranois</h3>
-                        <p>The largest city in the skies. Most denizens are Humans and Elves working in a symbiotic relationship. Felidae are unfortunately commonly found here as slaves or pets.</p>
-                        <div class="tags-container"><span class="tag-pill">sky city</span><span class="tag-pill">midranois</span></div>
-                    </div>
-                </div>
-
             </div>
         </section>
 
         <!-- ITEMS SECTION -->
         <section id="items" class="wiki-section">
             <div class="wiki-grid">
-                
-                <div class="wiki-card">
-                    <div class="card-content">
-                        <h3>Sugar Apples</h3>
-                        <p>A fruit with red flesh, white skin, and a deliciously sweet flavor. They grow uniquely on bushes instead of trees and are seen as a high fruit of prestige.</p>
-                        <div class="tags-container"><span class="tag-pill">fruit</span><span class="tag-pill">sugar apples</span></div>
-                    </div>
-                </div>
-
                 <div class="wiki-card">
                     <div class="card-content">
                         <h3>The Silver Iris</h3>
-                        <p>A large, crystalline orb containing swirling silver mist. Whoever cracks the orb and breathes the mist is instantly gifted the ancient knowledge of the Elder Dragons.</p>
-                        <div class="tags-container"><span class="tag-pill">artifact</span><span class="tag-pill">orb</span></div>
+                        <p>A large, crystalline orb containing swirling silver mist[cite: 1]. Whoever cracks the orb and breathes the mist is instantly gifted the ancient knowledge of the Elder Dragons[cite: 1].</p>
+                        <div class="tags-container"><span class="tag-pill">artifact</span></div>
                     </div>
                 </div>
-
-                <div class="wiki-card">
-                    <div class="card-content">
-                        <h3>Scarlet Root</h3>
-                        <p>An extremely rare red root. Ground down into powder, it nullifies the effects of overwhelming magic. It acts as both medicine and a drug, and must be fed fresh blood to grow.</p>
-                        <div class="tags-container"><span class="tag-pill">magic dampener</span><span class="tag-pill">rare root</span></div>
-                    </div>
-                </div>
-
             </div>
         </section>
 
     </div>
 
     <script>
+        /* Tab Switcher Logic */
         function switchTab(sectionId, button) {
-            // Hide all wiki sections
             const sections = document.querySelectorAll('.wiki-section');
             sections.forEach(sec => sec.classList.remove('active-section'));
 
-            // Remove active status from all buttons
             const buttons = document.querySelectorAll('.nav-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
 
-            // Show current targeted section and light up the button
             document.getElementById(sectionId).classList.add('active-section');
             button.classList.add('active');
         }
+
+        /* HTML5 Canvas Particle Cursor Trail System (Bubbles/Sparkles) */
+        const canvas = document.getElementById('cursor-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let particlesArray = [];
+
+        // Resize canvas dynamically
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Track cursor coordinates
+        const mouse = { x: null, y: null };
+        window.addEventListener('mousemove', function(e) {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+            
+            // Create multiple bubble particles on cursor movement
+            for (let i = 0; i < 2; i++) {
+                particlesArray.push(new Particle(mouse.x, mouse.y));
+            }
+        });
+
+        // Particle Class Blueprint
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                // Randomized sizes and float velocities
+                this.size = Math.random() * 6 + 2;
+                this.speedX = Math.random() * 1.5 - 0.75;
+                this.speedY = Math.random() * -2 - 0.5; // Bubble floats upward gently
+                this.alpha = 1; // Full opacity start
+                this.decay = Math.random() * 0.015 + 0.01; // Dissipation rate
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.alpha -= this.decay;
+                if (this.size > 0.1) this.size -= 0.02;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                
+                // Translucent golden bubble style
+                ctx.fillStyle = 'rgba(212, 175, 55, 0.4)';
+                ctx.fill();
+                ctx.strokeStyle = 'rgba(255, 244, 202, 0.7)';
+                ctx.lineWidth = 0.5;
+                ctx.stroke();
+                
+                ctx.restore();
+            }
+        }
+
+        // Animation Loop Routine
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+                
+                // Clear out dead particles to maintain performance
+                if (particlesArray[i].alpha <= 0) {
+                    particlesArray.splice(i, 1);
+                    i--;
+                }
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
     </script>
 </body>
 </html>
